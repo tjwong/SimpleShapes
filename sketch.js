@@ -7,5 +7,5 @@ function setup() {
 
 // Draw code goes here
 function draw() {
-  background(0);
+  background(255,223,0);
 }
