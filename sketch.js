@@ -1,184 +1,149 @@
+/***************************************************************
+    P5.js Self Portrait
+        by Tyler Wong
+
+    Overview - This project uses different shaping techniques in P5.js
+    to create a "self portrait" in a style inspired by the popular "POP FUNKO"
+    figurines.
+
+    ---------------------------------------------------------------------
+    Notes: 
+     (1) There is debug code that is commented out for the final release
+     (2) I attempted to use mousePressed() functions but I could not get them 
+          to work. Clarifying that would be helpful.
+****************************************************************/
+
+// var debugMode = false;
 
 // Setup code goes here
 function setup() {
-  createCanvas(1000, 600);
-  noCursor();
+  createCanvas(1000, 800);
+
+  textSize(24);
+  textAlign(LEFT);
  }
-
-//Global variables for sky color
-let r = 0;
-let g = 0;
-let b = 0;
-let rx = 0;
-let gx = 0;
-let bx = 0;
-
-//function that changes the color of the sky
-function changeSky() {
-  //light blue = (173, 216, 230)
-  if(mouseX < 250 && r != 173) { 
-  	rx = 173 - r;
-  	if(rx <= 0) {
-  		r = r - 1;
-  	} else {
-  		r = r + 1;
-  	}
-  }
-  if(mouseX < 250 && g != 216) {
-  	gx = 216 - g;
-  	if(gx <= 0) {
-  		g = g - 1;
-  	} else {
-  		g = g + 1;
-  	}
-  }
-  if(mouseX < 250 && b != 230) {
-  	bx = 230 - b;
-  	if(gx <= 0) {
-  		b = b - 1;
-  	} else {
-  		b = b + 1;
-  	}
-  }
-  
-  //sky blue = (0,191,255)
-  if(mouseX > 250 && mouseX < 500 && r != 0) { 
-  	rx = 0 - r;
-  	if(rx <= 0) {
-  		r = r - 1;
-  	} else {
-  		r = r + 1;
-  	}
-  }
-  if(mouseX > 250 && mouseX < 500 && g != 191) {
-  	gx = 191 - g;
-  	if(gx <= 0) {
-  		g = g - 1;
-  	} else {
-  		g = g + 1;
-  	}
-  }
-  if(mouseX > 250 && mouseX < 500 && b != 255) {
-  	bx = 255 - b;
-  	if(bx <= 0) {
-  		b = b - 1;
-  	} else {
-  		b = b + 1;
-  	}
-  }
-  
-  //orange = (255,165,0) 
-  if(mouseX > 500 && mouseX < 750 && r != 255) { 
-  	rx = 255 - r;
-  	if(rx <= 0) {
-  		r = r - 1;
-  	} else {
-  		r = r + 1;
-  	}
-  }
-  if(mouseX > 500 && mouseX < 750 && g != 165) {
-  	gx = 165 - g;
-  	if(gx <= 0) {
-  		g = g - 1;
-  	} else {
-  		g = g + 1;
-  	}
-  }
-  if(mouseX > 500 && mouseX < 750 && b != 0) {
-  	bx = 0 - b;
-  	if(bx <= 0) {
-  		b = b - 1;
-  	} else {
-  		b = b + 1;
-  	}
-  }
-  
-  //tomato pink = (255,99,71)
-  if(mouseX > 750 && mouseX < 900 && r != 255) { 
-  	rx = 255 - r;
-  	if(rx <= 0) {
-  		r = r - 1;
-  	} else {
-  		r = r + 1;
-  	}
-  }
-  if(mouseX > 750 && mouseX < 900 && g != 99) {
-  	gx = 99 - g;
-  	if(gx <= 0) {
-  		g = g - 1;
-  	} else {
-  		g = g + 1;
-  	}
-  }
-  if(mouseX > 750 && mouseX < 900 && b != 71) {
-  	bx = 71 - b;
-  	if(bx <= 0) {
-  		b = b - 1;
-  	} else {
-  		b = b + 1;
-  	}
-  }
-  
-  //indigo (75,0,130)
-  if(mouseX > 900 && mouseX < 1000 && r != 75) { 
-  	rx = 75 - r;
-  	if(rx <= 0) {
-  		r = r - 1;
-  	} else {
-  		r = r + 1;
-  	}
-  }
-  if(mouseX > 900 && mouseX < 1000 && g != 0) {
-  	gx = 0 - g;
-  	if(gx <= 0) {
-  		g = g - 1;
-  	} else {
-  		g = g + 1;
-  	}
-  }
-  if(mouseX > 900 && mouseX < 1000 && b != 130) {
-  	bx = 130 - b;
-  	if(bx <= 0) {
-  		b = b - 1;
-  	} else {
-  		b = b + 1;
-  	}
-  }
-  
-}
 
 // Draw code goes here
 function draw() {
-  background(r, g, b);
+  background(255,223,0);
+
+  drawFace();
+
+  drawEyes();
   
-  //Changes the sky color to 'night'
-  if(mouseIsPressed) {
-    background(105,105,105);
-    fill(255,255,191);
-    circle(mouseX, mouseY, 100);
-    
-  } else {
-    changeSky();
-    fill(255,223,0);
-    circle(mouseX, mouseY, 100);
+  drawHair();
+
+  drawShirt();
+
+  drawNose();
+
+  //Debug toggle for coordinates
+  if (debugMode == true) {
+    drawDebug();
   }
 
+}
 
+//Draws the face, neck, and ears
+function drawFace() {
   noStroke();
-  
-  if(mouseIsPressed) {
-    fill(0, 0, 0);
-  } else {
-    fill(105,105,105);
-  }
-  
-  text('Drag the "sun" to change the time of day! Click to make it night!' , 50, 50);
-  triangle(-100, 600, 20, 300, 250, 600);
-  triangle(0, 600, 150, 350, 400, 600);
-  triangle(175, 600, 300, 250, 500, 600);
-  triangle(250, 600, 450, 175, 700, 600);
-  triangle(475, 600, 575, 225, 800, 600);
-  triangle(1000, 600, 750, 350, 600, 600);
-  triangle(1100, 600, 950, 200, 600, 600);
+  fill(241, 194, 125);
 
+  // Draws the face/neck
+  rect(200, 200, 600, 400, 150);
+  rect(450, 600, 100, 150);
+
+  // Code that draws the ears
+  ellipse(200, 400, 70);
+  ellipse(800, 400, 70);
+}
+
+//Draws the eyes 
+function drawEyes() {
+  fill(0);
+  ellipse(350, 425, 90);
+  ellipse(650, 425, 90);
+
+  fill(225);
+  ellipse(360, 400, 15);
+  ellipse(660, 400, 15);
+}
+
+//Draws the hair in two different sections
+function drawHair() {
+  fill(0);
+
+  //Draws the left side of the hair
+  beginShape();
+  vertex(200, 400);
+  vertex(200, 250);
+  vertex(270, 190);
+  vertex(380, 160);
+  vertex(410, 200);
+  vertex(410, 310);
+  vertex(310, 310);
+  vertex(310, 310);
+  vertex(230, 370);
+  endShape(CLOSE);
+
+  //Draws the right side of the hair
+  beginShape();
+  vertex(410, 200);
+  vertex(435, 160);
+  vertex(550, 155);
+  vertex(600, 140);
+  vertex(595, 160);
+  vertex(710, 165);
+  vertex(755, 155);
+  vertex(740, 180);
+  vertex(755, 155);
+  vertex(740, 190);
+  vertex(790, 190);
+  vertex(810, 185);
+  vertex(800, 220);
+  vertex(800, 400);
+  vertex(770, 370);
+  vertex(690, 310);
+  vertex(410, 310);
+  endShape(CLOSE);
+}
+
+//Draws the red-orange shirt using buidShape()
+function drawShirt() {
+  fill(255, 83, 73);
+  noStroke();
+
+  beginShape();
+  vertex(275, 800);
+  vertex(280, 710);
+  vertex(330, 670);
+  vertex(450, 655);
+  vertex(500, 690);
+  vertex(550, 655);
+  vertex(670, 670);
+  vertex(720, 710);
+  vertex(735, 800);
+  endShape(CLOSE);
+}
+
+//Draws the nose using arc()
+function drawNose() {
+  noFill();
+  stroke(0);
+  strokeWeight(3);
+  
+  arc(500, 500, 50, 50, HALF_PI + PI , 0, OPEN);
+}
+
+// Code that outputs coordinates for easier plotting
+function drawDebug() {
+  fill(255);
+  text("X: " + mouseX + "   Y: " + mouseY, 20, height - 20);
+}
+
+// Registers whether the space bar key was typed or not
+function keyTyped() {
+  if (key === ' ') {
+    debugMode = !debugMode;
+  }
 }
